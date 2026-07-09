@@ -3,6 +3,7 @@ import 'package:bawabak/core/config/themes/manager/theme_cubit.dart';
 import 'package:bawabak/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Bawabetak extends StatelessWidget {
   const Bawabetak({super.key});
@@ -15,15 +16,22 @@ class Bawabetak extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.themeMode != current.themeMode,
         builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: AppStrings.appName,
-            darkTheme: AppTheme.darkTheme,
-            theme: AppTheme.lightTheme,
-            themeMode: state.themeMode,
-            home: const Scaffold(
-              body: Center(child: Text('Welcome to Bawabetak!')),
-            ),
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: false,
+            builder: (_, child) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: AppStrings.appName,
+                darkTheme: AppTheme.darkTheme,
+                theme: AppTheme.lightTheme,
+                themeMode: state.themeMode,
+                home: const Scaffold(
+                  body: Center(child: Text('Welcome to Bawabetak!')),
+                ),
+              );
+            },
           );
         },
       ),
