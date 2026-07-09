@@ -1,8 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppSizes {
-  AppSizes._();
-
+abstract class AppSizes {
   static double get paddingXXS => 4.w;
   static double get paddingXS => 8.w;
   static double get paddingS => 12.w;

@@ -1,14 +1,41 @@
+import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    primarySwatch: Colors.green,
-    primaryColor: Colors.green,
+    primaryColor: AppColors.primaryColor,
+    scaffoldBackgroundColor: AppColors.bgMainLight,
+
+    // fontFamily: 'Cairo',
+    appBarTheme: AppBarTheme(
+      scrolledUnderElevation: 0,
+      backgroundColor: AppColors.bgMainLight,
+      elevation: 0,
+      iconTheme: IconThemeData(color: AppColors.textPrimaryLight),
+
+      // titleTextStyle: AppStyles.bigDesdcriptionStyle.copyWith(
+      //   fontSize: SizeConfig.textSize * 2.2,
+      //   fontFamily: 'Cairo',
+      // ),
+    ),
   );
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primarySwatch: Colors.red,
-    primaryColor: Colors.red,
+    primaryColor: AppColors.primaryColor,
+    scaffoldBackgroundColor: AppColors.bgMainDark,
+
+    // fontFamily: 'Cairo',
+    appBarTheme: AppBarTheme(
+      scrolledUnderElevation: 0,
+      backgroundColor: AppColors.bgMainDark,
+      elevation: 0,
+      iconTheme: IconThemeData(color: AppColors.textPrimaryDark),
+
+      // titleTextStyle: AppStyles.bigDesdcriptionStyle.copyWith(
+      //   fontSize: SizeConfig.textSize * 2.2,
+      //   fontFamily: 'Cairo',
+      // ),
+    ),
   );
 }

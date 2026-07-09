@@ -1,3 +1,5 @@
+import 'package:bawabak/core/config/routing/app_router.dart';
+import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_theme.dart';
 import 'package:bawabak/core/config/themes/manager/theme_cubit.dart';
 import 'package:bawabak/core/utils/app_strings.dart';
@@ -22,6 +24,8 @@ class Bawabetak extends StatelessWidget {
             splitScreenMode: false,
             builder: (_, child) {
               return MaterialApp(
+                initialRoute: AppRoutes.onboarding,
+                onGenerateRoute: AppRouter.onGenerateRoute,
                 debugShowCheckedModeBanner: false,
                 title: AppStrings.appName,
                 darkTheme: AppTheme.darkTheme,
