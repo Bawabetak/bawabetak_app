@@ -33,6 +33,7 @@ class AppButton extends StatelessWidget {
       textColor: textColor,
       minWidth: double.infinity,
       height: height,
+      disabledColor: AppColors.primaryColor.withValues(alpha: 0.1),
       onPressed: onPressed,
       color: color,
       shape:

@@ -14,6 +14,7 @@ abstract class AppTheme {
       backgroundColor: AppColors.bgMainLight,
       elevation: 0,
       iconTheme: IconThemeData(color: AppColors.textPrimaryLight),
+      titleTextStyle: AppStyles.font18BlackBold(),
     ),
 
     textTheme: TextTheme(
@@ -34,6 +35,9 @@ abstract class AppTheme {
       backgroundColor: AppColors.bgMainDark,
       elevation: 0,
       iconTheme: IconThemeData(color: AppColors.textPrimaryDark),
+      titleTextStyle: AppStyles.font18BlackBold().copyWith(
+        color: AppColors.bgMainLight,
+      ),
     ),
 
     textTheme: TextTheme(

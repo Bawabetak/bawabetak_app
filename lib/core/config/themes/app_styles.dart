@@ -23,4 +23,10 @@ abstract class AppStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.bgMainDark,
   );
+
+  static TextStyle font18BlackBold() => TextStyle(
+    fontSize: AppSizes.fontL,
+    fontWeight: FontWeight.bold,
+    color: AppColors.bgMainDark,
+  );
 }
