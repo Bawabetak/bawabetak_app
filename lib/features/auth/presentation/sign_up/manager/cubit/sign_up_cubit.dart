@@ -6,11 +6,19 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpState.inintial());
-    final signUpFormKey = GlobalKey<FormState>();
+  final signUpFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void togglePasswordIcon() {
     emit(state.copyWith(showPassword: !state.showPassword));
+  }
+
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    return super.close();
   }
 }

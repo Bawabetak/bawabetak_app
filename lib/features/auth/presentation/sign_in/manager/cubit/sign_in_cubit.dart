@@ -14,4 +14,12 @@ class SignInCubit extends Cubit<SignInState> {
   void togglePasswordIcon() {
     emit(state.copyWith(showPassword: !state.showPassword));
   }
+
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    return super.close();
+  }
 }

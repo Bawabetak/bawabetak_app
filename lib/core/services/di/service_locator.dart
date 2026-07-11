@@ -7,6 +7,6 @@ final gi = GetIt.instance;
 
 void setupServiceLocator() async {
   gi.registerLazySingleton(() => OnboardingCubit());
-  gi.registerLazySingleton(() => SignInCubit());
-  gi.registerLazySingleton(() => SignUpCubit());
+  gi.registerFactory(() => SignInCubit());
+  gi.registerFactory(() => SignUpCubit());
 }

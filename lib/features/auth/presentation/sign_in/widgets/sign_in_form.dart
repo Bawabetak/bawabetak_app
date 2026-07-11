@@ -7,32 +7,8 @@ import 'package:bawabak/features/auth/presentation/sign_in/manager/cubit/sign_in
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
-
-  @override
-  State<SignInForm> createState() => _SignInFormState();
-}
-
-class _SignInFormState extends State<SignInForm> {
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    final cubit = context.read<SignInCubit>();
-    emailController = cubit.emailController;
-    passwordController = cubit.passwordController;
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +18,7 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         children: [
           AppTextFormField(
-            controller: emailController,
+            controller: cubit.emailController,
             keyboardType: TextInputType.emailAddress,
             hint: "Email",
             prefixIcon: Icon(Icons.email, color: AppColors.grey, size: 23),
@@ -53,7 +29,7 @@ class _SignInFormState extends State<SignInForm> {
                 previous.showPassword != current.showPassword,
             builder: (context, state) {
               return AppTextFormField(
-                controller: passwordController,
+                controller: cubit.passwordController,
                 obscureText: !state.showPassword,
                 suffixIcon: IconButton(
                   onPressed: () {

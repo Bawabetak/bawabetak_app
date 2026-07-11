@@ -6,32 +6,8 @@ import 'package:bawabak/features/auth/presentation/sign_up/manager/cubit/sign_up
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpForm extends StatefulWidget {
+class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
-
-  @override
-  State<SignUpForm> createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
-  late final TextEditingController emailController;
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    final cubit = context.read<SignUpCubit>();
-    emailController = cubit.emailController;
-    passwordController = cubit.passwordController;
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +17,7 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           AppTextFormField(
-            controller: emailController,
+            controller: cubit.emailController,
             keyboardType: TextInputType.emailAddress,
             hint: "Email",
             prefixIcon: Icon(Icons.email, color: AppColors.grey, size: 23),
@@ -52,7 +28,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 previous.showPassword != current.showPassword,
             builder: (context, state) {
               return AppTextFormField(
-                controller: passwordController,
+                controller: cubit.passwordController,
                 obscureText: !state.showPassword,
                 suffixIcon: IconButton(
                   onPressed: () {
