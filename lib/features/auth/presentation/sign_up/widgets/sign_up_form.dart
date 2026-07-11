@@ -62,6 +62,7 @@ class SignUpForm extends StatelessWidget {
                 context.pushNamed(
                   AppRoutes.verifyEmail,
                   arguments: VerifyEmailScreenModel(
+                    fromSignUp: true,
                     nextRoute: AppRoutes.onboarding,
                     email: cubit.emailController.text,
                   ),

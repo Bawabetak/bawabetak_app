@@ -1,6 +1,8 @@
+import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:bawabak/core/constants/app_sizes.dart';
 import 'package:bawabak/core/extensions/config_extenstions.dart';
+import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/features/auth/data/models/verify_email_screen_model.dart';
@@ -17,7 +19,13 @@ class VerifyEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Verification Code")),
+      appBar: AppBar(
+        title: Text(
+          verifyEmailScreenModel.fromSignUp
+              ? "Verification Email"
+              : "Forgot Password",
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -69,6 +77,11 @@ class VerifyEmailScreen extends StatelessWidget {
                       onPressed: state.verifyEmail.isLoading
                           ? null
                           : () {
+                              context.pushNamed(
+                                AppRoutes.forgotPass,
+                                arguments: "Disha",
+                              );
+
                               ///call api
                             },
                     );

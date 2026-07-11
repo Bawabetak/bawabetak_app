@@ -1,3 +1,4 @@
+import 'package:bawabak/features/auth/presentation/forgot_pass/manager/cubit/forgot_password_cubit.dart';
 import 'package:bawabak/features/auth/presentation/sign_in/manager/cubit/sign_in_cubit.dart';
 import 'package:bawabak/features/auth/presentation/sign_up/manager/cubit/sign_up_cubit.dart';
 import 'package:bawabak/features/auth/presentation/verify_email/manager/cubit/verify_email_cubit.dart';
@@ -11,4 +12,5 @@ void setupServiceLocator() async {
   gi.registerFactory(() => SignInCubit());
   gi.registerFactory(() => SignUpCubit());
   gi.registerFactory(() => VerifyEmailCubit());
+  gi.registerFactory(() => ForgotPasswordCubit());
 }

@@ -6,6 +6,10 @@ class Assets {
   /// assets/fonts/Cairo-Regular.ttf
   static const String assetsFontsCairoRegular = "assets/fonts/Cairo-Regular.ttf";
 
+  /// Assets for assetsImagesForgotPass
+  /// assets/images/forgotPass.png
+  static const String assetsImagesForgotPass = "assets/images/forgotPass.png";
+
   /// Assets for assetsImagesOnboardingOne
   /// assets/images/onboarding_one.jpg
   static const String assetsImagesOnboardingOne = "assets/images/onboarding_one.jpg";
