@@ -5,11 +5,11 @@ import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/auth/auth_not_have_an_account.dart';
 import 'package:bawabak/core/widgets/auth/auth_stack_image.dart';
-import 'package:bawabak/features/auth/presentation/sign_in/widgets/sign_in_form.dart';
+import 'package:bawabak/features/auth/presentation/sign_up/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +23,22 @@ class SignInScreen extends StatelessWidget {
               children: [
                 const AuthStackImag(),
                 Align(
-                  child: Text('Login', style: context.textTheme.headlineSmall),
+                  child: Text(
+                    'Sign Up',
+                    style: context.textTheme.headlineSmall,
+                  ),
                 ),
 
                 const VerticalSpace(30),
-                SignInForm(),
+                SignUpForm(),
 
                 const VerticalSpace(13),
                 Center(
                   child: AuhtNotHaveAnAccount(
-                    title1: "Don't have an account?",
-                    title2: " Sign Up",
+                    title1: "Already have an account?",
+                    title2: " Sign In",
                     onPressed: () {
-                      context.pushReplacementNamed(AppRoutes.signUp);
+                      context.pushReplacementNamed(AppRoutes.signIn);
                     },
                   ),
                 ),
