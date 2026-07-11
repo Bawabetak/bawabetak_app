@@ -47,7 +47,7 @@ class AppTextFormField extends StatelessWidget {
       initialValue: intialValue,
       keyboardType: keyboardType,
       minLines: minLine,
-      maxLines: maxLine,
+      maxLines: maxLine??1,
       controller: controller,
       obscureText: obscureText ?? false,
       cursorColor: AppColors.primaryColor,

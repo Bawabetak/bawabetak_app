@@ -1,5 +1,6 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/services/di/service_locator.dart';
+import 'package:bawabak/features/auth/presentation/sign_in/manager/cubit/sign_in_cubit.dart';
 import 'package:bawabak/features/auth/presentation/sign_in/screens/sign_in_screen.dart';
 import 'package:bawabak/features/onboarding/presentation/manager/cubit/onboarding_cubit.dart';
 import 'package:bawabak/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -18,7 +19,12 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.signIn:
-        return MaterialPageRoute(builder: (_) => SignInScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => gi<SignInCubit>(),
+            child: SignInScreen(),
+          ),
+        );
 
       default:
         return MaterialPageRoute(builder: (_) => Container());
