@@ -1,6 +1,5 @@
 import 'package:bawabak/core/database/cache/shared_preferences_helper.dart';
 import 'package:bawabak/core/utils/app_strings.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +14,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     final appTheme = SharedPreferencesHelper().get(key: AppStrings.theme);
     emit(
       LoadAppThemeState(
-        themeMode: ThemeMode.values[appTheme ?? ThemeMode.system.index],
+        themeMode: ThemeMode.values[appTheme ?? ThemeMode.light.index],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class AppSizes {
@@ -62,4 +63,10 @@ abstract class AppSizes {
   static double get avatarS => 32.r;
   static double get avatarM => 48.r;
   static double get avatarL => 64.r;
+
+  static double getWidth(BuildContext context) =>
+      MediaQuery.of(context).size.width;
+
+  static double getHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height;
 }
