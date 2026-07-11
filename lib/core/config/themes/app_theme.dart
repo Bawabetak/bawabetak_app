@@ -19,6 +19,8 @@ abstract class AppTheme {
     textTheme: TextTheme(
       labelLarge: AppStyles.font14LightGrayMedium(),
       headlineMedium: AppStyles.font28BlackBold(),
+      headlineSmall: AppStyles.font24BlackExtraBold(),
+      titleMedium: AppStyles.font16BlackBold(),
     ),
   );
   static final ThemeData darkTheme = ThemeData(
@@ -37,6 +39,12 @@ abstract class AppTheme {
     textTheme: TextTheme(
       labelLarge: AppStyles.font14LightGrayMedium(),
       headlineMedium: AppStyles.font28BlackBold().copyWith(
+        color: AppColors.bgMainLight,
+      ),
+      headlineSmall: AppStyles.font24BlackExtraBold().copyWith(
+        color: AppColors.bgMainLight,
+      ),
+      titleMedium: AppStyles.font16BlackBold().copyWith(
         color: AppColors.bgMainLight,
       ),
     ),

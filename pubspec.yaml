@@ -35,6 +35,8 @@ flutter:
   assets:
     - .env
     - assets/images/
+    - assets/launcher/
+    - assets/svgs/
 
   fonts:
     - family: Cairo
