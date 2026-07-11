@@ -23,7 +23,7 @@ class SignInScreen extends StatelessWidget {
               children: [
                 const AuthStackImag(),
                 Align(
-                  child: Text('Login', style: context.textTheme.headlineSmall),
+                  child: Text('Login', style: context.textTheme.headlineMedium),
                 ),
 
                 const VerticalSpace(30),

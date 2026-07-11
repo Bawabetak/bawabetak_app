@@ -3,6 +3,7 @@ import 'package:bawabak/core/services/di/service_locator.dart';
 import 'package:bawabak/features/auth/data/models/verify_email_screen_model.dart';
 import 'package:bawabak/features/auth/presentation/forgot_pass/manager/cubit/forgot_password_cubit.dart';
 import 'package:bawabak/features/auth/presentation/forgot_pass/screens/forgot_pass_screen.dart';
+import 'package:bawabak/features/auth/presentation/forgot_pass/screens/reset_pass_screen.dart';
 import 'package:bawabak/features/auth/presentation/sign_in/manager/cubit/sign_in_cubit.dart';
 import 'package:bawabak/features/auth/presentation/sign_in/screens/sign_in_screen.dart';
 import 'package:bawabak/features/auth/presentation/sign_up/manager/cubit/sign_up_cubit.dart';
@@ -53,6 +54,13 @@ abstract class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => gi<ForgotPasswordCubit>(),
             child: ForgotPassScreen(email: args as String),
+          ),
+        );
+      case AppRoutes.resetPass:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => gi<ForgotPasswordCubit>(),
+            child: ResetPassScreen(email: args as String),
           ),
         );
 

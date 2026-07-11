@@ -7,12 +7,21 @@ part 'forgot_password_state.dart';
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit() : super(ForgotPasswordState.inintial());
 
-  final formKey = GlobalKey<FormState>();
+  final forgotPassFormKey = GlobalKey<FormState>();
+  final resetPassFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final confirmPassController = TextEditingController();
+
+  void togglePasswordIcon() {
+    emit(state.copyWith(showPass: !state.showPass));
+  }
 
   @override
   Future<void> close() {
     emailController.dispose();
+    passController.dispose();
+    confirmPassController.dispose();
     return super.close();
   }
 }

@@ -4,4 +4,5 @@ abstract class AppRoutes {
   static const String signUp = '/signUp';
   static const String forgotPass = '/forgotPass';
   static const String verifyEmail = '/verifyEmail';
+  static const String resetPass = '/resetPass';
 }

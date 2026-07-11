@@ -25,7 +25,7 @@ class SignUpScreen extends StatelessWidget {
                 Align(
                   child: Text(
                     'Sign Up',
-                    style: context.textTheme.headlineSmall,
+                    style: context.textTheme.headlineMedium,
                   ),
                 ),
 

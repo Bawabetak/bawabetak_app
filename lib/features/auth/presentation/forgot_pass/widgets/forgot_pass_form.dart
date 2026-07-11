@@ -1,4 +1,6 @@
+import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
+import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/core/widgets/app_text_form_field.dart';
@@ -15,6 +17,7 @@ class ForgotPassForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ForgotPasswordCubit>();
     return Form(
+      key: cubit.forgotPassFormKey,
       child: Column(
         children: [
           AppTextFormField(
@@ -36,7 +39,12 @@ class ForgotPassForm extends StatelessWidget {
               onPressed: cubit.state.sendOtpCode.isLoading
                   ? null
                   : () {
-                      if (cubit.formKey.currentState!.validate()) {}
+                      if (cubit.forgotPassFormKey.currentState!.validate()) {
+                        context.pushNamed(
+                          AppRoutes.resetPass,
+                          arguments: 'gggg',
+                        );
+                      }
                     },
             ),
           ),
