@@ -8,8 +8,18 @@ abstract class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.textSecondaryDark,
   );
-  static  TextStyle font28BlackBold() => TextStyle(
+  static TextStyle font28BlackBold() => TextStyle(
     fontSize: AppSizes.fontTitle,
+    fontWeight: FontWeight.bold,
+    color: AppColors.bgMainDark,
+  );
+  static TextStyle font24BlackExtraBold() => TextStyle(
+    fontSize: AppSizes.fontXXL,
+    fontWeight: FontWeight.w800,
+    color: AppColors.bgMainDark,
+  );
+  static TextStyle font16BlackBold() => TextStyle(
+    fontSize: AppSizes.fontM,
     fontWeight: FontWeight.bold,
     color: AppColors.bgMainDark,
   );

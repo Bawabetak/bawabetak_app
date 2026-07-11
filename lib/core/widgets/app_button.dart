@@ -10,9 +10,10 @@ class AppButton extends StatelessWidget {
     this.color = AppColors.primaryColor,
     this.textColor = AppColors.bgMainLight,
     this.style,
-    this.height = 50,
+    this.height = 55,
     this.shape,
-    this.elevation=1
+    this.elevation = 1,
+    this.splashColor,
   });
   final VoidCallback? onPressed;
   final String text;
@@ -22,17 +23,21 @@ class AppButton extends StatelessWidget {
   final ShapeBorder? shape;
   final Color? textColor;
   final double? elevation;
+  final Color? splashColor;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      splashColor: splashColor,
       elevation: elevation,
       textColor: textColor,
       minWidth: double.infinity,
       height: height,
       onPressed: onPressed,
       color: color,
-      shape: shape ?? StadiumBorder(),
+      shape:
+          shape ??
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Text(
         text,
         style:
