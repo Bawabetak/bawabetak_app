@@ -3,9 +3,14 @@ import 'package:bawabak/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppStyles {
-  static font14BlackRegular() => TextStyle(
+  static TextStyle font14LightGrayMedium() => TextStyle(
     fontSize: AppSizes.fontS,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textSecondaryDark,
+  );
+  static  TextStyle font28BlackBold() => TextStyle(
+    fontSize: AppSizes.fontTitle,
+    fontWeight: FontWeight.bold,
     color: AppColors.bgMainDark,
-    fontWeight: FontWeight.w400,
   );
 }
