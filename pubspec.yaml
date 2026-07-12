@@ -21,6 +21,8 @@ dependencies:
   get_it: ^9.2.1
   pinput: ^6.0.2
   fluttertoast: ^9.0.0
+  dio: ^5.10.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

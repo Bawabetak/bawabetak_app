@@ -2,6 +2,7 @@ import 'package:bawabak/core/config/routing/app_router.dart';
 import 'package:bawabak/core/config/themes/app_theme.dart';
 import 'package:bawabak/core/config/themes/manager/theme_cubit.dart';
 import 'package:bawabak/core/functions/handle_init_route.dart';
+import 'package:bawabak/core/services/di/service_locator.dart';
 import 'package:bawabak/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ class Bawabetak extends StatelessWidget {
             splitScreenMode: false,
             builder: (_, child) {
               return MaterialApp(
+                navigatorKey: navigatorKey,
                 initialRoute: handleInitialRoute(),
                 onGenerateRoute: AppRouter.onGenerateRoute,
                 debugShowCheckedModeBanner: false,
