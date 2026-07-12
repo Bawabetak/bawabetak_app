@@ -1,6 +1,8 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:bawabak/core/extensions/navigate_extensions.dart';
+import 'package:bawabak/core/functions/toast_alert.dart';
+import 'package:bawabak/core/helpers/app_validator.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/core/widgets/app_text_form_field.dart';
@@ -20,8 +22,9 @@ class SignUpForm extends StatelessWidget {
       child: Column(
         children: [
           AppTextFormField(
+            validator: (value) => AppValidators.email(value),
             controller: cubit.emailController,
-            keyboardType: TextInputType.emailAddress,
+            // keyboardType: TextInputType.emailAddress,
             hint: "Email",
             prefixIcon: Icon(Icons.email, color: AppColors.grey, size: 23),
           ),
@@ -31,6 +34,7 @@ class SignUpForm extends StatelessWidget {
                 previous.showPassword != current.showPassword,
             builder: (context, state) {
               return AppTextFormField(
+                validator: (value) => AppValidators.password(value),
                 controller: cubit.passwordController,
                 obscureText: !state.showPassword,
                 suffixIcon: IconButton(
@@ -53,12 +57,14 @@ class SignUpForm extends StatelessWidget {
 
           const VerticalSpace(13),
 
-          AppButton(
-            text: "Sign Up",
-            onPressed: () {
-              if (cubit.signUpFormKey.currentState!.validate()) {
-                ///call api
-                ///
+          BlocConsumer<SignUpCubit, SignUpState>(
+            listenWhen: (previous, current) =>
+                previous.signUp != current.signUp,
+            buildWhen: (previous, current) => previous.signUp != current.signUp,
+            listener: (context, state) {
+              if (state.signUp.isError) {
+                toastAlert(msg: state.signUp.error!, color: AppColors.redColor);
+              } else if (state.signUp.isSuccess) {
                 context.pushNamed(
                   AppRoutes.verifyEmail,
                   arguments: VerifyEmailScreenModel(
@@ -68,6 +74,16 @@ class SignUpForm extends StatelessWidget {
                   ),
                 );
               }
+            },
+            builder: (context, state) {
+              return AppButton(
+                text: state.signUp.isLoading ? "Signing up..." : "Sign Up",
+                onPressed: () {
+                  if (cubit.signUpFormKey.currentState!.validate()) {
+                    cubit.signUpWithEmailAndPassword();
+                  }
+                },
+              );
             },
           ),
         ],

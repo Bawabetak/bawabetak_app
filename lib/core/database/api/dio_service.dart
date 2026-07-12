@@ -1,25 +1,12 @@
-import 'package:bawabak/core/database/api/api_end_points.dart';
-import 'package:bawabak/core/database/api/api_interceptor.dart';
 import 'package:bawabak/core/database/api/api_service.dart';
 import 'package:bawabak/core/database/api/errors/api_exception.dart';
 import 'package:bawabak/core/database/api/errors/error_model.dart';
-import 'package:bawabak/core/functions/logout.dart';
 import 'package:dio/dio.dart';
 
 class DioService implements ApiService {
   final Dio dio;
 
-  DioService({required this.dio}) {
-    dio.options = BaseOptions(
-      baseUrl: ApiEndPoints.baseUrl,
-      connectTimeout: const Duration(seconds: 60),
-      receiveTimeout: const Duration(seconds: 60),
-      sendTimeout: const Duration(seconds: 60),
-    );
-
-    dio.interceptors.add(ApiInterceptor(client: dio, onLogout: logout));
-    // dio.interceptors.add(LogInterceptor());
-  }
+  DioService({required this.dio});
   @override
   Future get(
     String path, {
