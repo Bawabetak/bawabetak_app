@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bawabak/app/bawabetak.dart';
 import 'package:bawabak/core/database/cache/shared_preferences_helper.dart';
 import 'package:bawabak/core/services/di/service_locator.dart';
@@ -13,3 +15,5 @@ void main() async {
   ]);
   runApp(const Bawabetak());
 }
+
+

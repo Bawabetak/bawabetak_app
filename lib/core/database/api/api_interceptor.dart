@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bawabak/core/database/api/api_end_points.dart';
 import 'package:bawabak/core/database/cache/secure_storage_helper.dart';
 import 'package:bawabak/core/utils/app_strings.dart';
@@ -7,6 +9,8 @@ class ApiInterceptor extends Interceptor {
   final Dio client;
   final Future<void> Function()? onLogout;
   late final Dio _refreshDio;
+  Completer<void>? _refreshCompleter;
+  bool _isRefreshing = false;
 
   ApiInterceptor({required this.onLogout, required this.client}) {
     _refreshDio = Dio();
@@ -20,6 +24,7 @@ class ApiInterceptor extends Interceptor {
     final String? accessToken = await SecureStorageHelper().get(
       key: AppStrings.accessToken,
     );
+    options.headers["X-Client-Type"] = "Mobile";
 
     if (accessToken != null && accessToken.isNotEmpty) {
       options.headers["Authorization"] = "Bearer $accessToken";
@@ -31,13 +36,34 @@ class ApiInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      final isRefreshedToken = await _refreshToken();
+      ///when other request is refershing the token
+      if (_isRefreshing) {
+        try {
+          await _refreshCompleter!.future;
+          return _retryRequest(err, handler);
+        } catch (_) {
+          return handler.next(err);
+        }
+      }
 
-      if (isRefreshedToken) {
-        return _retryRequest(err, handler);
-      } else {
-        await onLogout?.call();
-        return handler.next(err);
+      ///when the current request is refreshing token
+      _isRefreshing = true;
+      _refreshCompleter = Completer<void>();
+
+      try {
+        final isRefreshedToken = await _refreshToken();
+
+        if (isRefreshedToken) {
+          _refreshCompleter!.complete();
+          return _retryRequest(err, handler);
+        } else {
+          _refreshCompleter!.completeError(Exception("Refresh failed"));
+          await onLogout?.call();
+          return handler.next(err);
+        }
+      } finally {
+        _isRefreshing = false;
+        _refreshCompleter = null;
       }
     }
     return handler.next(err);
@@ -70,9 +96,14 @@ class ApiInterceptor extends Interceptor {
       );
 
       final newAccessToken = response.data["accessToken"];
-      await SecureStorageHelper().set(
+      final newRefreshToken = response.data["refreshToken"];
+      SecureStorageHelper().set(
         key: AppStrings.accessToken,
         value: newAccessToken,
+      );
+      SecureStorageHelper().set(
+        key: AppStrings.refreshToken,
+        value: newRefreshToken,
       );
       return true;
     } catch (e) {
