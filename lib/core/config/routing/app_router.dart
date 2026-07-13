@@ -1,4 +1,5 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
+import 'package:bawabak/core/enums/auth_enums.dart';
 import 'package:bawabak/core/services/di/service_locator.dart';
 import 'package:bawabak/features/auth/data/models/verify_email_screen_model.dart';
 import 'package:bawabak/features/auth/presentation/forgot_pass/manager/cubit/forgot_password_cubit.dart';
@@ -41,12 +42,17 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.verifyEmail:
+        final VerifyEmailScreenModel data = args as VerifyEmailScreenModel;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => gi<VerifyEmailCubit>()..startTimer(),
-            child: VerifyEmailScreen(
-              verifyEmailScreenModel: args as VerifyEmailScreenModel,
-            ),
+            create: (context) => gi<VerifyEmailCubit>()
+              ..startTimer(
+                email: data.email,
+                type: data.fromSignUp
+                    ? VerificationType.otp
+                    : VerificationType.forgotPassword,
+              ),
+            child: VerifyEmailScreen(verifyEmailScreenModel: data),
           ),
         );
       case AppRoutes.forgotPass:

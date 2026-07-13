@@ -26,6 +26,6 @@ void setupServiceLocator() async {
   gi.registerLazySingleton(() => OnboardingCubit());
   gi.registerFactory(() => SignInCubit());
   gi.registerFactory(() => SignUpCubit(gi<AuthRepo>()));
-  gi.registerFactory(() => VerifyEmailCubit());
+  gi.registerFactory(() => VerifyEmailCubit(gi<AuthRepo>()));
   gi.registerFactory(() => ForgotPasswordCubit());
 }

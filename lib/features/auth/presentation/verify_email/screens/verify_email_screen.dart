@@ -1,8 +1,8 @@
-import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:bawabak/core/constants/app_sizes.dart';
 import 'package:bawabak/core/extensions/config_extenstions.dart';
 import 'package:bawabak/core/extensions/navigate_extensions.dart';
+import 'package:bawabak/core/functions/toast_alert.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/features/auth/data/models/verify_email_screen_model.dart';
@@ -61,29 +61,38 @@ class VerifyEmailScreen extends StatelessWidget {
                 const VerticalSpace(15),
                 BlocConsumer<VerifyEmailCubit, VerifyEmailState>(
                   listenWhen: (previous, current) =>
-                      previous.enableButton != current.enableButton,
+                      previous.verifyEmail != current.verifyEmail,
                   buildWhen: (previous, current) =>
-                      previous.enableButton != current.enableButton,
+                      previous.enableButton != current.enableButton ||
+                      previous.verifyEmail != current.verifyEmail,
                   listener: (context, state) {
-                    ///when api response
+                    if (state.verifyEmail.isError) {
+                      toastAlert(
+                        msg: state.verifyEmail.error!,
+                        color: AppColors.redColor,
+                      );
+                    } else if (state.verifyEmail.isSuccess) {
+                      context.pushReplacementNamed(
+                        verifyEmailScreenModel.nextRoute,
+                      );
+                    }
                   },
                   builder: (context, state) {
                     return AppButton(
-                      text: "Verify",
+                      text: state.verifyEmail.isLoading
+                          ? "Verifying....."
+                          : "Verify",
                       color: state.enableButton
                           ? AppColors.primaryColor
                           : AppColors.grey,
 
-                      onPressed: state.verifyEmail.isLoading
-                          ? null
-                          : () {
-                              context.pushNamed(
-                                AppRoutes.forgotPass,
-                                arguments: "Disha",
-                              );
-
-                              ///call api
-                            },
+                      onPressed: () {
+                        if (state.enableButton) {
+                          context.read<VerifyEmailCubit>().verifyCode(
+                            email: verifyEmailScreenModel.email,
+                          );
+                        }
+                      },
                     );
                   },
                 ),

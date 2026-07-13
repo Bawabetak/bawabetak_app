@@ -11,8 +11,8 @@ class CustomOtpField extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<VerifyEmailCubit>();
     final baseTheme = PinTheme(
-      width: 60,
-      height: 60,
+      width: 50,
+      height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 6),
       textStyle: Theme.of(
         context,
@@ -24,6 +24,7 @@ class CustomOtpField extends StatelessWidget {
     );
 
     return Pinput(
+      length: 6,
       autofocus: true,
       autofillHints: const [],
       enabled: true,
