@@ -37,4 +37,14 @@ class AuthRemoteDataSource {
       body: {"email": email, "type": type.index},
     );
   }
+
+  Future<void> forgotPassword({
+    required String email,
+    required String password,
+  }) async {
+    await api.post(
+      ApiEndPoints.forgotPassword,
+      body: {"email": email, "password": password},
+    );
+  }
 }

@@ -27,5 +27,5 @@ void setupServiceLocator() async {
   gi.registerFactory(() => SignInCubit());
   gi.registerFactory(() => SignUpCubit(gi<AuthRepo>()));
   gi.registerFactory(() => VerifyEmailCubit(gi<AuthRepo>()));
-  gi.registerFactory(() => ForgotPasswordCubit());
+  gi.registerFactory(() => ForgotPasswordCubit(gi<AuthRepo>()));
 }

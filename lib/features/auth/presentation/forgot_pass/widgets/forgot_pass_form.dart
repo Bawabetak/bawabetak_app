@@ -1,17 +1,17 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:bawabak/core/extensions/navigate_extensions.dart';
+import 'package:bawabak/core/functions/toast_alert.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/core/widgets/app_text_form_field.dart';
+import 'package:bawabak/features/auth/data/models/verify_email_screen_model.dart';
 import 'package:bawabak/features/auth/presentation/forgot_pass/manager/cubit/forgot_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPassForm extends StatelessWidget {
-  const ForgotPassForm({super.key, required this.email});
-
-  final String email;
+  const ForgotPassForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +22,43 @@ class ForgotPassForm extends StatelessWidget {
         children: [
           AppTextFormField(
             controller: cubit.emailController,
-            keyboardType: TextInputType.emailAddress,
+            // keyboardType: TextInputType.emailAddress,
             hint: "Email Address",
             prefixIcon: Icon(Icons.email, color: AppColors.grey, size: 23),
           ),
 
           const VerticalSpace(35),
-          BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+          BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
             listenWhen: (previous, current) =>
                 previous.sendOtpCode != current.sendOtpCode,
+            buildWhen: (previous, current) =>
+                previous.sendOtpCode != current.sendOtpCode,
             listener: (context, state) {
-              //listen to api response
+              if (state.sendOtpCode.isSuccess) {
+                context.pushNamed(
+                  AppRoutes.verifyEmail,
+                  arguments: VerifyEmailScreenModel(
+                    fromSignUp: false,
+                    nextRoute: AppRoutes.resetPass,
+                    email: cubit.emailController.text,
+                  ),
+                );
+              } else if (state.sendOtpCode.isError) {
+                toastAlert(
+                  msg: state.sendOtpCode.error!,
+                  color: AppColors.redColor,
+                );
+              }
             },
-            child: AppButton(
-              text: "Send Verification Code",
-              onPressed: cubit.state.sendOtpCode.isLoading
-                  ? null
-                  : () {
-                      if (cubit.forgotPassFormKey.currentState!.validate()) {
-                        context.pushNamed(
-                          AppRoutes.resetPass,
-                          arguments: 'gggg',
-                        );
-                      }
-                    },
+            builder: (context, state) => AppButton(
+              text: state.sendOtpCode.isLoading
+                  ? "Sending..."
+                  : "Send Verification Code",
+              onPressed: () {
+                if (cubit.forgotPassFormKey.currentState!.validate()) {
+                  cubit.resendOtpCodeToEmail();
+                }
+              },
             ),
           ),
         ],

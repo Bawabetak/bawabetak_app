@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForgotPassScreen extends StatelessWidget {
-  const ForgotPassScreen({super.key, required this.email});
-  final String email;
+  const ForgotPassScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class ForgotPassScreen extends StatelessWidget {
               ),
 
               const VerticalSpace(20),
-              ForgotPassForm(email: email),
+              ForgotPassForm(),
             ],
           ),
         ),

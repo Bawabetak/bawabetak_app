@@ -55,4 +55,19 @@ class AuthRepoImpl implements AuthRepo {
       return Left(e.toString());
     }
   }
+
+  @override
+  Future<Either<String, Null>> forgotPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await remote.forgotPassword(email: email, password: password);
+      return Right(null);
+    } on ServerException catch (e) {
+      return Left(e.errorModel.message);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
 }

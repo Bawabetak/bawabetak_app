@@ -1,5 +1,7 @@
+import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
 import 'package:bawabak/core/extensions/config_extenstions.dart';
+import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
 import 'package:bawabak/core/widgets/app_button.dart';
 import 'package:bawabak/core/widgets/app_text_form_field.dart';
@@ -51,10 +53,15 @@ class SignInForm extends StatelessWidget {
           const VerticalSpace(13),
           Align(
             alignment: Alignment.centerRight,
-            child: Text(
-              'Forgot the password?',
-              style: context.textTheme.titleMedium!.copyWith(
-                color: AppColors.primaryColor,
+            child: GestureDetector(
+              onTap: () {
+                context.pushNamed(AppRoutes.forgotPass);
+              },
+              child: Text(
+                'Forgot the password?',
+                style: context.textTheme.titleMedium!.copyWith(
+                  color: AppColors.primaryColor,
+                ),
               ),
             ),
           ),

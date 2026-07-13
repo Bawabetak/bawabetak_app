@@ -59,7 +59,7 @@ abstract class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => gi<ForgotPasswordCubit>(),
-            child: ForgotPassScreen(email: args as String),
+            child: ForgotPassScreen(),
           ),
         );
       case AppRoutes.resetPass:

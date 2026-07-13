@@ -30,6 +30,7 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
       if (state.otpTime > 0) {
         emit(state.copyWith(otpTime: state.otpTime - 1));
       } else {
+        otpTimer?.cancel();
         resendCode(email: email, type: type);
       }
     });

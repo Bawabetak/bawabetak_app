@@ -4,4 +4,5 @@ abstract class ApiEndPoints {
   static final String register = '/api/auth/register';
   static final String verifyCode = '/api/auth/verify-code';
   static final String sendVerificationCode = '/api/auth/send-verification';
+  static final String forgotPassword = '/api/auth/Forget-password';
 }

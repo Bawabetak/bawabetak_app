@@ -15,4 +15,9 @@ abstract class AuthRepo {
     required String email,
     required VerificationType type,
   });
+
+  Future<Either<String, Null>> forgotPassword({
+    required String email,
+    required String password,
+  });
 }
