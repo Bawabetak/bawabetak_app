@@ -24,33 +24,26 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
     }
   }
 
-  void startTimer({required String email, required VerificationType type}) {
+  void startTimer() {
     otpTimer?.cancel();
     otpTimer = Timer.periodic(Duration(seconds: 1), (time) {
       if (state.otpTime > 0) {
         emit(state.copyWith(otpTime: state.otpTime - 1));
       } else {
         otpTimer?.cancel();
-        resendCode(email: email, type: type);
       }
     });
   }
 
-  void resendCode({
+  Future<void> verifyCode({
     required String email,
     required VerificationType type,
   }) async {
-    await resendOtpCodeToEmail(email: email, type: type);
-    emit(state.copyWith(otpTime: 60));
-    startTimer(email: email, type: type);
-  }
-
-  Future<void> verifyCode({required String email}) async {
     if (state.verifyEmail.isLoading || otpCode.length < 6) return;
     emit(state.copyWith(verifyEmail: BoxState.loading()));
     final response = await VerifyEmail(
       authRepo: authRepo,
-    ).call(email: email, code: otpCode, type: VerificationType.otp);
+    ).call(email: email, code: otpCode, type: type);
 
     response.fold(
       (error) {
@@ -71,9 +64,15 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
       authRepo: authRepo,
     ).call(email: email, type: type);
 
-    response.fold((error) {
-      otpTimer?.cancel();
-      emit(state.copyWith(verifyEmail: BoxState.error(error: error)));
-    }, (_) {});
+    response.fold(
+      (error) {
+        otpTimer?.cancel();
+        emit(state.copyWith(verifyEmail: BoxState.error(error: error)));
+      },
+      (_) {
+        emit(state.copyWith(otpTime: 60));
+        startTimer();
+      },
+    );
   }
 }

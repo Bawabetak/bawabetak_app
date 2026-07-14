@@ -1,5 +1,6 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
+import 'package:bawabak/core/enums/auth_enums.dart';
 import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/functions/toast_alert.dart';
 import 'package:bawabak/core/utils/app_spaces.dart';
@@ -38,6 +39,7 @@ class ForgotPassForm extends StatelessWidget {
                 context.pushNamed(
                   AppRoutes.verifyEmail,
                   arguments: VerifyEmailScreenModel(
+                    type: VerificationType.forgotPassword,
                     fromSignUp: false,
                     nextRoute: AppRoutes.resetPass,
                     email: cubit.emailController.text,

@@ -94,7 +94,7 @@ class ResetPassForm extends StatelessWidget {
                 if (cubit.resetPassFormKey.currentState!.validate()) {
                   if (cubit.passController.text ==
                       cubit.confirmPassController.text) {
-                    cubit.forgotPassword();
+                    cubit.forgotPassword(email: email);
                   } else {
                     toastAlert(
                       msg: "Password doesn't match",

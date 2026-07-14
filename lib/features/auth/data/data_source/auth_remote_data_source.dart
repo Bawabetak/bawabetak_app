@@ -1,6 +1,8 @@
 import 'package:bawabak/core/database/api/api_end_points.dart';
 import 'package:bawabak/core/database/api/api_service.dart';
 import 'package:bawabak/core/enums/auth_enums.dart';
+import 'package:bawabak/features/auth/data/models/sign_in_model.dart';
+import 'package:bawabak/features/auth/domain/entities/sign_in_entity.dart';
 
 class AuthRemoteDataSource {
   final ApiService api;
@@ -46,5 +48,16 @@ class AuthRemoteDataSource {
       ApiEndPoints.forgotPassword,
       body: {"email": email, "password": password},
     );
+  }
+
+  Future<SignInEntity> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    final response = await api.post(
+      ApiEndPoints.login,
+      body: {"email": email, "password": password},
+    );
+    return SignInModel.fromJson(json: response['data']);
   }
 }

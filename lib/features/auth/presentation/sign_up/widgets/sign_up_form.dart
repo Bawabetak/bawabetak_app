@@ -1,5 +1,6 @@
 import 'package:bawabak/core/config/routing/app_routes.dart';
 import 'package:bawabak/core/config/themes/app_colors.dart';
+import 'package:bawabak/core/enums/auth_enums.dart';
 import 'package:bawabak/core/extensions/navigate_extensions.dart';
 import 'package:bawabak/core/functions/toast_alert.dart';
 import 'package:bawabak/core/helpers/app_validator.dart';
@@ -68,6 +69,7 @@ class SignUpForm extends StatelessWidget {
                 context.pushNamed(
                   AppRoutes.verifyEmail,
                   arguments: VerifyEmailScreenModel(
+                    type: VerificationType.otp,
                     fromSignUp: true,
                     nextRoute: AppRoutes.onboarding,
                     email: cubit.emailController.text,

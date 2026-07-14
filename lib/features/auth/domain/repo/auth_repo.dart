@@ -1,4 +1,5 @@
 import 'package:bawabak/core/enums/auth_enums.dart';
+import 'package:bawabak/features/auth/domain/entities/sign_in_entity.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AuthRepo {
@@ -17,6 +18,10 @@ abstract class AuthRepo {
   });
 
   Future<Either<String, Null>> forgotPassword({
+    required String email,
+    required String password,
+  });
+  Future<Either<String, SignInEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
   });

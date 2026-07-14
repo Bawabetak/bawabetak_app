@@ -1,5 +1,6 @@
 import 'package:bawabak/core/database/api/dio_factory.dart';
 import 'package:bawabak/core/database/api/dio_service.dart';
+import 'package:bawabak/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:bawabak/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:bawabak/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:bawabak/features/auth/domain/repo/auth_repo.dart';
@@ -19,12 +20,15 @@ void setupServiceLocator() async {
   gi.registerLazySingleton(() => DioService(dio: dio));
   gi.registerLazySingleton(() => AuthRemoteDataSource(api: gi<DioService>()));
   gi.registerLazySingleton<AuthRepo>(
-    () => AuthRepoImpl(remote: gi<AuthRemoteDataSource>()),
+    () => AuthRepoImpl(
+      remote: gi<AuthRemoteDataSource>(),
+      local: AuthLocalDataSource(),
+    ),
   );
 
   ///all cubits
   gi.registerLazySingleton(() => OnboardingCubit());
-  gi.registerFactory(() => SignInCubit());
+  gi.registerFactory(() => SignInCubit(gi<AuthRepo>()));
   gi.registerFactory(() => SignUpCubit(gi<AuthRepo>()));
   gi.registerFactory(() => VerifyEmailCubit(gi<AuthRepo>()));
   gi.registerFactory(() => ForgotPasswordCubit(gi<AuthRepo>()));

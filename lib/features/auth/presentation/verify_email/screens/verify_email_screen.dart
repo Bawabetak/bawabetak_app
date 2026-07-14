@@ -18,6 +18,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<VerifyEmailCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -48,13 +49,29 @@ class VerifyEmailScreen extends StatelessWidget {
                   buildWhen: (previous, current) =>
                       previous.otpTime != current.otpTime,
                   builder: (context, state) {
-                    return Text(
-                      "Resend Code in ${state.otpTime}s",
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.titleMedium!.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
-                    );
+                    return state.otpTime == 0
+                        ? InkWell(
+                            onTap: () {
+                              cubit.resendOtpCodeToEmail(
+                                email: verifyEmailScreenModel.email,
+                                type: verifyEmailScreenModel.type,
+                              );
+                            },
+                            child: Text(
+                              "Resend Code Again",
+                              textAlign: TextAlign.center,
+                              style: context.textTheme.titleMedium!.copyWith(
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            "Resend Code in ${state.otpTime}s",
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.titleMedium!.copyWith(
+                              color: AppColors.primaryColor,
+                            ),
+                          );
                   },
                 ),
 
@@ -72,8 +89,9 @@ class VerifyEmailScreen extends StatelessWidget {
                         color: AppColors.redColor,
                       );
                     } else if (state.verifyEmail.isSuccess) {
-                      context.pushReplacementNamed(
+                      context.pushNamedAndRemoveUntil(
                         verifyEmailScreenModel.nextRoute,
+                        arguments: verifyEmailScreenModel.email,
                       );
                     }
                   },
@@ -90,6 +108,7 @@ class VerifyEmailScreen extends StatelessWidget {
                         if (state.enableButton) {
                           context.read<VerifyEmailCubit>().verifyCode(
                             email: verifyEmailScreenModel.email,
+                            type: verifyEmailScreenModel.type,
                           );
                         }
                       },

@@ -40,12 +40,12 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     );
   }
 
-  Future<void> forgotPassword() async {
+  Future<void> forgotPassword({required String email}) async {
     if (state.resetPass.isLoading) return;
     emit(state.copyWith(resetPass: BoxState.loading()));
     final response = await ForgotPassword(
       authRepo: authRepo,
-    ).call(email: emailController.text, password: passController.text);
+    ).call(email: email, password: passController.text);
 
     response.fold(
       (error) {
